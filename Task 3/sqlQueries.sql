@@ -22,6 +22,15 @@ where a.room_id = r.room_id
 and r.name like 'Room A'
 group by room
 
+--Get information about all appointments in Room E
+select a.patient_id, a.appointment_date, concat(tim.start_time,'-',tim.end_time) Time,r.name
+from appointment a, room r, treatment t, time tim
+where a.room_id = r.room_id
+and r.name like 'Room E'
+and a.time_id = tim.time_id
+group by a.patient_id, a.appointment_date, concat(tim.start_time,'-',tim.end_time),r.name
+order by a.appointment_date desc
+
 --Get a report of the total sales in kroner (NOK) for each employee 
 select e.*,  sum(t.price)
 from appointment a, treatment t, employee e, resource r

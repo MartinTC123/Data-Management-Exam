@@ -23,7 +23,7 @@ INSERT INTO employee(role_id, fname, lname) VALUES(2,'Oswald','Cobblepot');
 INSERT INTO employee(role_id, fname, lname) VALUES(2,'Aegon','Targaryen');
 --Receptionist
 INSERT INTO employee(role_id, fname, lname) VALUES(3,'Alfred','Pennyworth');
-INSERT INTO employee(role_id, fname, lname) VALUES(3,'Sansa','Stark');
+INSERT INTO employee(role_id, fname, lname) VALUES(3,'Arya','Stark');
 --Hygienist
 INSERT INTO employee(role_id, fname, lname) VALUES(4,'Arthur','Fleck');
 INSERT INTO employee(role_id, fname, lname) VALUES(4,'Ramsay','Bolton');
@@ -72,28 +72,131 @@ INSERT INTO time(start_time, end_time) VALUES('11:00:00', '12:00:00');
 INSERT INTO time(start_time, end_time) VALUES('14:00:00', '15:00:00');
 INSERT INTO time(start_time, end_time) VALUES('15:00:00', '16:00:00');
 
---Appointments
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20108945678',1,'2010-05-10', 1, 1, 'Damages from tooth decay');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('01010005678',2,'2014-01-10', 3, 6, 'Crown placed incorrectly');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('30129985678',3,'2016-05-30', 4, 6, 'Broken foundation');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20108945678',1,'2017-05-10', 1, 2, 'Not happy with color');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('01010005678',2,'2020-01-11', 3, 4, 'Semi-annual check');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('30129985678',2,'2015-01-23', 5, 5, 'Tooth needed to be extracted');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('22118955678',3,'2012-06-12', 1, 1, 'Tooth cavity');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('19018975678',4,'2013-02-18', 2, 2, 'Yellow teeth');
-INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('31120195678',5,'2021-07-21', 2, 3, 'Cleaning for tooth rot');
+--Appointments: Filling treatments
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20108945678',1,'2000-05-10', 1, 1, 'Damages from tooth decay');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('22118955678',2,'2014-07-10', 3, 1, 'Tooth decay');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('26128965678',3,'2017-05-30', 4, 1, 'Damages on tooth');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('19018975678',4,'2007-05-10', 1, 1, 'Damages from tooth decay');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('30129985678',5,'2021-01-11', 3, 1, 'Tooth decay');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('31120195678',1,'2012-01-23', 5, 1, 'Damages on tooth');
+
+--Appointments: Teeth whitening treatments
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('01010005678',1,'2011-03-15', 1, 2, 'Want whiter teeth');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('05050594678',2,'2016-02-19', 3, 2, 'Unhappy with current color');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('30111209876',3,'2008-12-10', 4, 2, 'Yellow teeth');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('22010256678',4,'2021-06-14', 1, 2, 'Teeth are getting darker');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20118567893',5,'2022-01-10', 3, 2, 'Not happy with current color');
+
+--Appointments: Dental cleaning treatments
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('26128965678',1,'2005-03-09', 1, 3, 'Annual cleaning');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('09119556824',2,'2012-02-14', 3, 3, 'Semi-annual cleaning');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('14021583729',3,'2017-08-29', 4, 3, 'Issues with bad breath');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('04040005778',4,'2022-09-09', 1, 3, 'Annual cleaning');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('15056595678',5,'2001-11-01', 3, 3, 'Semi-annual cleaning');
+
+--Appointments: Dental check treatments
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20108945678',1,'2004-09-13', 1, 4, 'Annual check');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('22118955678',2,'2009-10-16', 3, 4, 'Semi-annual check');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('26128965678',3,'2014-03-01', 4, 4, 'Issues with tooth ache');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('19018975678',4,'2019-10-01', 1, 4, 'Annual cleaning');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('30129985678',5,'2020-04-01', 3, 4, 'Semi-annual cleaning');
+
+--Appointments: Extraction treatments
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('25018029485',1,'2003-01-10', 1, 5, 'Loose tooth');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('01010005678',2,'2008-05-09', 3, 5, 'N/A');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('15056595678',3,'2013-08-28', 4, 5, 'Tooth breakage');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20118567893',4,'2018-08-08', 1, 5, 'Impacted teeth');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('30129985678',5,'2021-07-15', 3, 5, 'Gum disease');
+
+--Appointments: Crown treatments
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20108945678',1,'2001-09-11', 1, 6, 'Weak tooth');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('01010005678',2,'2006-04-04', 3, 6, 'N/A');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('30129985678',3,'2011-09-03', 4, 6, 'Prevent decay');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('20108945678',4,'2016-02-09', 1, 6, 'N/A');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('01010005678',5,'2021-02-03', 3, 6, 'Cracked tooth');
+
+--Appointments: Hygienic control treatments
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('25018029485',1,'2000-10-30', 1, 7, 'Prevent contamination');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('09119556824',2,'2005-11-05', 3, 7, 'N/A');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('14021583729',3,'2010-12-19', 2, 7, 'Prevent infections');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('04040005778',4,'2015-06-13', 5, 7, 'N/A');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('15056595678',5,'2020-06-12', 4, 7, 'Control');
+
+--Appointments: Patient want hygienic control as well as other dentist treatments.
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('15056595678',5,'2022-02-12', 4, 7, 'Hygienic control and dental cleaning, 1');
+INSERT INTO appointment(patient_id, room_id, appointment_date, time_id, treatment_id, short_desc) VALUES('15056595678',5,'2022-02-12', 5, 3, 'Hygienic control and dental cleaning, 2');
 
 --Resources
-INSERT INTO resource(employee_id, appointment_id) VALUES(1,1);
-INSERT INTO resource(employee_id, appointment_id) VALUES(7,1);
-INSERT INTO resource(employee_id, appointment_id) VALUES(18,1);
-INSERT INTO resource(employee_id, appointment_id) VALUES(4,2);
-INSERT INTO resource(employee_id, appointment_id) VALUES(5,9);
-INSERT INTO resource(employee_id, appointment_id) VALUES(14,8);
-INSERT INTO resource(employee_id, appointment_id) VALUES(12,7);
-INSERT INTO resource(employee_id, appointment_id) VALUES(10,7);
-INSERT INTO resource(employee_id, appointment_id) VALUES(8,6);
-INSERT INTO resource(employee_id, appointment_id) VALUES(5,5);
-INSERT INTO resource(employee_id, appointment_id) VALUES(17,4);
-INSERT INTO resource(employee_id, appointment_id) VALUES(14,3);
-INSERT INTO resource(employee_id, appointment_id) VALUES(14,2);
+--Filling appointments
+INSERT INTO resource(employee_id, appointment_id) VALUES(2,1);
+INSERT INTO resource(employee_id, appointment_id) VALUES(8,1);
+INSERT INTO resource(employee_id, appointment_id) VALUES(3,2);
+INSERT INTO resource(employee_id, appointment_id) VALUES(9,2);
+INSERT INTO resource(employee_id, appointment_id) VALUES(4,3);
+INSERT INTO resource(employee_id, appointment_id) VALUES(10,3);
+INSERT INTO resource(employee_id, appointment_id) VALUES(5,4);
+INSERT INTO resource(employee_id, appointment_id) VALUES(11,4);
+INSERT INTO resource(employee_id, appointment_id) VALUES(6,5);
+INSERT INTO resource(employee_id, appointment_id) VALUES(12,5);
+INSERT INTO resource(employee_id, appointment_id) VALUES(7,6);
+INSERT INTO resource(employee_id, appointment_id) VALUES(13,6);
+
+--Teeth whitement appointments
+INSERT INTO resource(employee_id, appointment_id) VALUES(14,7);
+INSERT INTO resource(employee_id, appointment_id) VALUES(18,8);
+INSERT INTO resource(employee_id, appointment_id) VALUES(20,9);
+INSERT INTO resource(employee_id, appointment_id) VALUES(4,10);
+INSERT INTO resource(employee_id, appointment_id) VALUES(3,11);
+
+--Dental cleaning appointments
+INSERT INTO resource(employee_id, appointment_id) VALUES(1,12);
+INSERT INTO resource(employee_id, appointment_id) VALUES(14,12);
+INSERT INTO resource(employee_id, appointment_id) VALUES(2,13);
+INSERT INTO resource(employee_id, appointment_id) VALUES(13,13);
+INSERT INTO resource(employee_id, appointment_id) VALUES(3,14);
+INSERT INTO resource(employee_id, appointment_id) VALUES(12,14);
+INSERT INTO resource(employee_id, appointment_id) VALUES(4,15);
+INSERT INTO resource(employee_id, appointment_id) VALUES(11,15);
+INSERT INTO resource(employee_id, appointment_id) VALUES(5,16);
+INSERT INTO resource(employee_id, appointment_id) VALUES(10,16);
+
+--Dental check appointments
+INSERT INTO resource(employee_id, appointment_id) VALUES(8,17);
+INSERT INTO resource(employee_id, appointment_id) VALUES(9,18);
+INSERT INTO resource(employee_id, appointment_id) VALUES(10,19);
+INSERT INTO resource(employee_id, appointment_id) VALUES(11,20);
+INSERT INTO resource(employee_id, appointment_id) VALUES(14,21);
+
+--Extraction treatments
+INSERT INTO resource(employee_id, appointment_id) VALUES(1,22);
+INSERT INTO resource(employee_id, appointment_id) VALUES(17,22);
+INSERT INTO resource(employee_id, appointment_id) VALUES(2,23);
+INSERT INTO resource(employee_id, appointment_id) VALUES(18,23);
+INSERT INTO resource(employee_id, appointment_id) VALUES(7,24);
+INSERT INTO resource(employee_id, appointment_id) VALUES(19,24);
+INSERT INTO resource(employee_id, appointment_id) VALUES(6,25);
+INSERT INTO resource(employee_id, appointment_id) VALUES(20,25);
+INSERT INTO resource(employee_id, appointment_id) VALUES(5,26);
+INSERT INTO resource(employee_id, appointment_id) VALUES(21,26);
+
+--Crown treatments
+INSERT INTO resource(employee_id, appointment_id) VALUES(7,27);
+INSERT INTO resource(employee_id, appointment_id) VALUES(6,28);
+INSERT INTO resource(employee_id, appointment_id) VALUES(5,29);
+INSERT INTO resource(employee_id, appointment_id) VALUES(4,30);
+INSERT INTO resource(employee_id, appointment_id) VALUES(3,31);
+
+--Hygienic control treatments (only 1 hygienist per appointmemnt) - Based on business rules
+INSERT INTO resource(employee_id, appointment_id) VALUES(17,32);
+INSERT INTO resource(employee_id, appointment_id) VALUES(18,33);
+INSERT INTO resource(employee_id, appointment_id) VALUES(19,34);
+INSERT INTO resource(employee_id, appointment_id) VALUES(20,35);
+INSERT INTO resource(employee_id, appointment_id) VALUES(21,36);
+
+--Assigning 1 senior, 1 trainee and 1 hygienist to appointment 37 and 38 - Based on business rules
+INSERT INTO resource(employee_id, appointment_id) VALUES(1,37);
+INSERT INTO resource(employee_id, appointment_id) VALUES(11,37);
+INSERT INTO resource(employee_id, appointment_id) VALUES(19,37);
+INSERT INTO resource(employee_id, appointment_id) VALUES(1,38);
+INSERT INTO resource(employee_id, appointment_id) VALUES(11,38);
+INSERT INTO resource(employee_id, appointment_id) VALUES(19,38);
