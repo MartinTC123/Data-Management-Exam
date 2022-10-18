@@ -38,7 +38,7 @@ where a.treatment_id = t.treatment_id
 and a.appointment_id = r.appointment_id
 and r.employee_id = e.employee_id
 group by e.employee_id
-order by e.employee_id asc
+order by sum(t.price) desc
 
 --Get a report of dentist Patrick Bateman´s most expensive treatment 
 --with information about the type of treatment and information about the patient
@@ -78,5 +78,38 @@ where res.employee_id IS NULL
 group by e.employee_id, concat(e.fname, ' ', e.lname), e.role_id, res.employee_id
 order by e.employee_id desc
 
+--Get a total overview of appointments using left join
+select a.appointment_id, p.national_id_nr, concat(p.fname, ' ', p.lname) p_name, e.employee_id emp_id, 
+concat(e.fname, ' ', e.lname) e_name, a.appointment_date, b.booking_date, concat(tim.start_time,'-',tim.end_time) time,
+r.name room, t.name treatment, t.price
+from patient p
+left join appointment a on p.national_id_nr = a.patient_id
+left join treatment t on a.treatment_id = t.treatment_id
+left join room r on a.room_id = r.room_id
+left join time tim on a.time_id = tim.time_id
+left join resource res on a.appointment_id = res.appointment_id
+left join employee e on res.employee_id = e.employee_id
+left join book_to_app bta on a.appointment_id = bta.appointment_id
+left join booking b on bta.booking_id = b.booking_id
+group by a.appointment_id, p.national_id_nr, concat(p.fname, ' ', p.lname), e.employee_id, 
+concat(e.fname, ' ', e.lname), a.appointment_date, b.booking_date, concat(tim.start_time,'-',tim.end_time),
+r.name, t.name, t.price
+order by a.appointment_id asc
 
+--Get the amount of bookings with the booking type that did not make it to an appointment
+select count(b.booking_type), bt.name
+from booking b 
+left join book_to_app bta on b.booking_id = bta.booking_id
+left join booking_type bt on bt.type_id = b.booking_type
+where bta.booking_id is NULL
+group by bt.name
+order by count(b.booking_type)
 
+--Get a report of all bookings with information about the patient and booking type
+select b.booking_id, b.booking_date, concat(p.fname,' ',p.lname) p_name, concat(e.fname,' ',e.lname) r_name, bt.name booking_type, b.short_desc
+from booking b
+left join patient p on b.patient_id = p.national_id_nr
+left join employee e on b.employee_id = e.employee_id
+left join booking_type bt on b.booking_type = bt.type_id
+group by b.booking_id, b.booking_date, concat(p.fname,' ',p.lname), concat(e.fname,' ',e.lname), bt.name, b.short_desc
+order by b.booking_date asc
