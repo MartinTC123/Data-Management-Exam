@@ -8,7 +8,6 @@ drop table if exists treatment cascade;
 drop table if exists time cascade;
 drop table if exists booking_type cascade;
 drop table if exists booking cascade;
-drop table if exists book_to_app cascade;
 
 create table role(
 	role_id 	INT GENERATED ALWAYS AS IDENTITY,
@@ -65,12 +64,12 @@ create table booking_type(
 );
 
 create table booking(
-	booking_id	INT GENERATED ALWAYS AS IDENTITY,
-	booking_date DATE NOT NULL,
-	patient_id VARCHAR(11) NOT NULL,
-	employee_id INT NOT NULL,
-	booking_type INT NOT NULL,
-	short_desc			VARCHAR(200) NOT NULL,
+	booking_id		INT GENERATED ALWAYS AS IDENTITY,
+	booking_date 	DATE NOT NULL,
+	patient_id 		VARCHAR(11) NOT NULL,
+	employee_id 	INT NOT NULL,
+	booking_type 	INT NOT NULL,
+	short_desc		VARCHAR(200) NOT NULL,
 	PRIMARY KEY(booking_id),
 	FOREIGN KEY(patient_id) REFERENCES patient(national_id_nr) on delete cascade,
 	FOREIGN KEY(employee_id) REFERENCES employee(employee_id) on delete cascade,
@@ -79,16 +78,18 @@ create table booking(
 
 create table appointment(
 	appointment_id		INT GENERATED ALWAYS AS IDENTITY,
-	patient_id      	VARCHAR(50) NOT NULL,
+	patient_id      	VARCHAR(11) NOT NULL,
     room_id         	INT NOT NULL,
     appointment_date    DATE NOT NULL,
     time_id				INT NOT NULL,
 	treatment_id		INT NOT NULL,
+	booking_id			INT NOT NULL,
 	PRIMARY KEY(appointment_id),
 	FOREIGN KEY(patient_id) REFERENCES patient(national_id_nr) on delete cascade,
 	FOREIGN KEY(room_id) REFERENCES room(room_id) on delete cascade,
 	FOREIGN KEY(time_id) REFERENCES time(time_id) on delete cascade,
-	FOREIGN KEY(treatment_id) REFERENCES treatment(treatment_id) on delete cascade
+	FOREIGN KEY(treatment_id) REFERENCES treatment(treatment_id) on delete cascade,
+	FOREIGN KEY(booking_id) REFERENCES booking(booking_id) on delete cascade
 );
 
 create table resource(
@@ -96,13 +97,5 @@ create table resource(
 	appointment_id  INT NOT NULL,
 	PRIMARY KEY(employee_id, appointment_id),
 	FOREIGN KEY(employee_id) REFERENCES employee(employee_id) on delete cascade,
-	FOREIGN KEY(appointment_id) REFERENCES appointment(appointment_id) on delete cascade
-);
-
-create table book_to_app(
-	booking_id INT NOT NULL,
-	appointment_id INT NOT NULL,
-	PRIMARY KEY(booking_id, appointment_id),
-	FOREIGN KEY(booking_id) REFERENCES booking(booking_id) on delete cascade,
 	FOREIGN KEY(appointment_id) REFERENCES appointment(appointment_id) on delete cascade
 );

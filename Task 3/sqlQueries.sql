@@ -42,16 +42,17 @@ order by sum(t.price) desc
 
 --Get a report of dentist Patrick Bateman´s most expensive treatment 
 --with information about the type of treatment and information about the patient
-select a.appointment_id id, concat(p.fname, ' ', p.lname) patient, t.name type, t.price price, a.short_desc info
-from treatment t, patient p, employee e, appointment a, resource res
+select a.appointment_id id, concat(p.fname, ' ', p.lname) patient, t.name type, t.price price, b.short_desc info
+from treatment t, patient p, employee e, appointment a, resource res, booking b
 where a.patient_id = p.national_id_nr
 and a.treatment_id = t.treatment_id
+and a.booking_id = b.booking_id
 and res.appointment_id = a.appointment_id
 and res.employee_id = e.employee_id
 and e.fname like 'Patrick'
 and e.lname like 'Bateman'
 and t.price = (select max(price) from treatment)
-group by a.appointment_id, concat(p.fname, ' ', p.lname), type, t.price, a.short_desc 
+group by a.appointment_id, concat(p.fname, ' ', p.lname), type, t.price, b.short_desc 
 
 --Get a report of employee Paul Allen´s number of appointments in the range of 2020-2022 
 select count(a.appointment_id) nr_of_appointments, concat(e.fname, ' ', e.lname) employee
@@ -65,7 +66,8 @@ and a.appointment_date <= '2022-01-01'
 group by employee
 
 --Get a report of the amount of employee´s who have never had an appointment
-select count(e.employee_id) nr_of_employees_with_no_appointment, e.role_id from employee e left join resource res 
+select count(e.employee_id) nr_of_employees_with_no_appointment, e.role_id 
+from employee e left join resource res 
 on e.employee_id = res.employee_id
 where res.employee_id IS NULL
 group by e.role_id
@@ -79,8 +81,8 @@ group by e.employee_id, concat(e.fname, ' ', e.lname), e.role_id, res.employee_i
 order by e.employee_id desc
 
 --Get a total overview of appointments using left join
-select a.appointment_id, p.national_id_nr, concat(p.fname, ' ', p.lname) p_name, e.employee_id emp_id, 
-concat(e.fname, ' ', e.lname) e_name, a.appointment_date, b.booking_date, concat(tim.start_time,'-',tim.end_time) time,
+select a.appointment_id, p.national_id_nr, concat(p.fname, ' ', p.lname) p_name, 
+count(e.employee_id) nr_of_emps, a.appointment_date, b.booking_date, b.employee_id b_responsible, concat(tim.start_time,'-',tim.end_time) time,
 r.name room, t.name treatment, t.price
 from patient p
 left join appointment a on p.national_id_nr = a.patient_id
@@ -89,19 +91,18 @@ left join room r on a.room_id = r.room_id
 left join time tim on a.time_id = tim.time_id
 left join resource res on a.appointment_id = res.appointment_id
 left join employee e on res.employee_id = e.employee_id
-left join book_to_app bta on a.appointment_id = bta.appointment_id
-left join booking b on bta.booking_id = b.booking_id
-group by a.appointment_id, p.national_id_nr, concat(p.fname, ' ', p.lname), e.employee_id, 
-concat(e.fname, ' ', e.lname), a.appointment_date, b.booking_date, concat(tim.start_time,'-',tim.end_time),
+left join booking b on a.booking_id = b.booking_id
+group by a.appointment_id, p.national_id_nr, concat(p.fname, ' ', p.lname), 
+a.appointment_date, b.booking_date, b.employee_id, concat(tim.start_time,'-',tim.end_time),
 r.name, t.name, t.price
 order by a.appointment_id asc
 
 --Get the amount of bookings with the booking type that did not make it to an appointment
 select count(b.booking_type), bt.name
 from booking b 
-left join book_to_app bta on b.booking_id = bta.booking_id
+left join appointment a on b.booking_id = a.booking_id
 left join booking_type bt on bt.type_id = b.booking_type
-where bta.booking_id is NULL
+where a.booking_id is NULL
 group by bt.name
 order by count(b.booking_type)
 
